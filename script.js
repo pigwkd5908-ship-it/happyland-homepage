@@ -17,19 +17,8 @@ document.querySelectorAll('.filter').forEach(button => {
     button.classList.add('active');
     const filter = button.dataset.filter;
     document.querySelectorAll('.listing-card').forEach(card => {
-      card.hidden = filter !== 'all' && card.dataset.type !== filter;
+      card.hidden = filter !== 'all' && !card.dataset.type.split(' ').includes(filter);
     });
   });
 });
 
-const dialog = document.getElementById('detailDialog');
-document.querySelectorAll('[data-detail]').forEach(button => {
-  button.addEventListener('click', () => {
-    const card = button.closest('.listing-card');
-    document.getElementById('dialogTitle').textContent = card.querySelector('h3').textContent;
-    dialog.showModal();
-  });
-});
-dialog?.addEventListener('click', event => {
-  if (event.target === dialog) dialog.close();
-});
